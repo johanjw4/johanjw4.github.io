@@ -1,72 +1,54 @@
-const loginDiv = document.getElementById("login");
-const panelDiv = document.getElementById("panel");
+const naamInput = document.getElementById("naamInput");
+const idnrInput = document.getElementById("idnrInput");
+const idpassInput = document.getElementById("idpassInput");
+const addItemBtn = document.getElementById("addItemBtn");
+const itemList = document.getElementById("itemList");
 
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+addItemBtn.addEventListener("click", async () => {
+  const item = {
+    naam: naamInput.value.trim(),
+    idnr: idnrInput.value.trim(),
+    idpass: idpassInput.value.trim()
+  };
 
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-
-const stringList = document.getElementById("stringList");
-const newStringInput = document.getElementById("newString");
-const addStringBtn = document.getElementById("addStringBtn");
-
-let currentUser = null;
-
-auth.onAuthStateChanged(user => {
-  if (user) {
-    currentUser = user;
-    loginDiv.style.display = "none";
-    panelDiv.style.display = "block";
-    loadStrings();
-  } else {
-    currentUser = null;
-    loginDiv.style.display = "block";
-    panelDiv.style.display = "none";
-  }
-});
-
-loginBtn.addEventListener("click", () => {
-  auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
-    .catch(err => alert(err.message));
-});
-
-logoutBtn.addEventListener("click", () => {
-  auth.signOut();
-});
-
-addStringBtn.addEventListener("click", async () => {
-  const str = newStringInput.value.trim();
-  if (!str) return;
+  if (!item.naam || !item.idnr || !item.idpass) return;
 
   const userRef = db.collection("users").doc(currentUser.uid);
   const doc = await userRef.get();
-  const data = doc.exists ? doc.data() : { strings: [] };
+  const data = doc.exists ? doc.data() : { items: [] };
 
-  data.strings.push(str);
+  data.items.push(item);
   await userRef.set(data);
-  newStringInput.value = "";
-  renderList(data.strings);
+
+  naamInput.value = "";
+  idnrInput.value = "";
+  idpassInput.value = "";
+
+  renderItems(data.items);
 });
 
 async function loadStrings() {
   const userRef = db.collection("users").doc(currentUser.uid);
   const doc = await userRef.get();
-  const data = doc.exists ? doc.data() : { strings: [] };
-  renderList(data.strings);
+  const data = doc.exists ? doc.data() : { items: [] };
+  renderItems(data.items);
 }
 
-function renderList(strings) {
-  stringList.innerHTML = "";
-  strings.forEach((str, index) => {
+function renderItems(items) {
+  itemList.innerHTML = "";
+  items.forEach((item, index) => {
     const li = document.createElement("li");
-    li.textContent = str;
+    li.innerHTML = `
+      <strong>${item.naam}</strong><br>
+      ID nr: ${item.idnr}<br>
+      Wachtwoord: ${item.idpass}
+    `;
     li.style.cursor = "pointer";
     li.addEventListener("click", async () => {
-      strings.splice(index, 1);
-      await db.collection("users").doc(currentUser.uid).set({ strings });
-      renderList(strings);
+      items.splice(index, 1);
+      await db.collection("users").doc(currentUser.uid).set({ items });
+      renderItems(items);
     });
-    stringList.appendChild(li);
+    itemList.appendChild(li);
   });
 }
