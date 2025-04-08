@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-  <title>Panel App</title>
+  <meta charset="UTF-8" />
+  <title>ID Manager</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js" defer></script>
   <script src="script.js" defer></script>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="login">
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Wachtwoord">
     <button id="loginBtn">Login</button>
   </div>
 
-  <div id="panel" style="display: none;">
+  <div id="panel" style="display:none;">
     <h2>Mijn ID's</h2>
     <ul id="itemList"></ul>
 
-    <input type="text" id="naamInput" placeholder="Naam" />
-    <input type="text" id="idnrInput" placeholder="ID nummer" />
-    <input type="text" id="idpassInput" placeholder="ID wachtwoord" />
+    <input type="text" id="naamInput" placeholder="Naam">
+    <input type="text" id="idnrInput" placeholder="ID nummer">
+    <input type="text" id="idpassInput" placeholder="ID wachtwoord">
     <button id="addItemBtn">Toevoegen</button>
     <button id="logoutBtn">Uitloggen</button>
   </div>
