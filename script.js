@@ -1,4 +1,3 @@
-require('dotenv').config();
 // Firebase-configuratie en import van Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
