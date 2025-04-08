@@ -1,8 +1,39 @@
+const loginDiv = document.getElementById("login");
+const panelDiv = document.getElementById("panel");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
 const naamInput = document.getElementById("naamInput");
 const idnrInput = document.getElementById("idnrInput");
 const idpassInput = document.getElementById("idpassInput");
 const addItemBtn = document.getElementById("addItemBtn");
 const itemList = document.getElementById("itemList");
+
+let currentUser = null;
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    currentUser = user;
+    loginDiv.style.display = "none";
+    panelDiv.style.display = "block";
+    loadItems();
+  } else {
+    currentUser = null;
+    loginDiv.style.display = "block";
+    panelDiv.style.display = "none";
+  }
+});
+
+loginBtn.addEventListener("click", () => {
+  auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+    .catch(err => alert(err.message));
+});
+
+logoutBtn.addEventListener("click", () => {
+  auth.signOut();
+});
 
 addItemBtn.addEventListener("click", async () => {
   const item = {
@@ -27,7 +58,7 @@ addItemBtn.addEventListener("click", async () => {
   renderItems(data.items);
 });
 
-async function loadStrings() {
+async function loadItems() {
   const userRef = db.collection("users").doc(currentUser.uid);
   const doc = await userRef.get();
   const data = doc.exists ? doc.data() : { items: [] };
@@ -43,7 +74,6 @@ function renderItems(items) {
       ID nr: ${item.idnr}<br>
       Wachtwoord: ${item.idpass}
     `;
-    li.style.cursor = "pointer";
     li.addEventListener("click", async () => {
       items.splice(index, 1);
       await db.collection("users").doc(currentUser.uid).set({ items });
