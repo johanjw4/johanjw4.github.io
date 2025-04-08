@@ -1,84 +1,56 @@
-const loginDiv = document.getElementById("login");
-const panelDiv = document.getElementById("panel");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+let user = null;
 
-const naamInput = document.getElementById("naamInput");
-const idnrInput = document.getElementById("idnrInput");
-const idpassInput = document.getElementById("idpassInput");
-const addItemBtn = document.getElementById("addItemBtn");
-const itemList = document.getElementById("itemList");
-
-let currentUser = null;
-
-auth.onAuthStateChanged(user => {
-  if (user) {
-    currentUser = user;
-    loginDiv.style.display = "none";
-    panelDiv.style.display = "block";
-    loadItems();
-  } else {
-    currentUser = null;
-    loginDiv.style.display = "block";
-    panelDiv.style.display = "none";
-  }
+auth.onAuthStateChanged((u) => {
+  user = u;
+  document.getElementById("app").style.display = u ? "block" : "none";
+  if (u) load();
 });
 
-loginBtn.addEventListener("click", () => {
-  auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
-    .catch(err => alert(err.message));
-});
-
-logoutBtn.addEventListener("click", () => {
-  auth.signOut();
-});
-
-addItemBtn.addEventListener("click", async () => {
-  const item = {
-    naam: naamInput.value.trim(),
-    idnr: idnrInput.value.trim(),
-    idpass: idpassInput.value.trim()
-  };
-
-  if (!item.naam || !item.idnr || !item.idpass) return;
-
-  const userRef = db.collection("users").doc(currentUser.uid);
-  const doc = await userRef.get();
-  const data = doc.exists ? doc.data() : { items: [] };
-
-  data.items.push(item);
-  await userRef.set(data);
-
-  naamInput.value = "";
-  idnrInput.value = "";
-  idpassInput.value = "";
-
-  renderItems(data.items);
-});
-
-async function loadItems() {
-  const userRef = db.collection("users").doc(currentUser.uid);
-  const doc = await userRef.get();
-  const data = doc.exists ? doc.data() : { items: [] };
-  renderItems(data.items);
+function login() {
+  const email = document.getElementById("email").value;
+  const pw = document.getElementById("password").value;
+  auth.signInWithEmailAndPassword(email, pw).catch((err) =>
+    alert("Login fout: " + err.message)
+  );
 }
 
-function renderItems(items) {
-  itemList.innerHTML = "";
+function logout() {
+  auth.signOut();
+}
+
+async function toevoegen() {
+  const naam = document.getElementById("naam").value;
+  const idnr = document.getElementById("idnr").value;
+  const idpass = document.getElementById("idpass").value;
+
+  if (!naam || !idnr || !idpass) {
+    alert("Alles invullen!");
+    return;
+  }
+
+  const item = { naam, idnr, idpass };
+  const ref = db.collection("users").doc(user.uid);
+  const doc = await ref.get();
+  const data = doc.exists ? doc.data() : { items: [] };
+  data.items.push(item);
+  await ref.set(data);
+  load();
+}
+
+async function load() {
+  const ref = db.collection("users").doc(user.uid);
+  const doc = await ref.get();
+  const items = doc.exists ? doc.data().items : [];
+  const list = document.getElementById("items");
+  list.innerHTML = "";
   items.forEach((item, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>${item.naam}</strong><br>
-      ID nr: ${item.idnr}<br>
-      Wachtwoord: ${item.idpass}
-    `;
-    li.addEventListener("click", async () => {
+    li.innerHTML = `<b>${item.naam}</b><br>ID: ${item.idnr}<br>Wachtwoord: ${item.idpass}`;
+    li.onclick = async () => {
       items.splice(index, 1);
-      await db.collection("users").doc(currentUser.uid).set({ items });
-      renderItems(items);
-    });
-    itemList.appendChild(li);
+      await ref.set({ items });
+      load();
+    };
+    list.appendChild(li);
   });
 }
