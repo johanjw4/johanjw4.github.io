@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
-        const email = `${username}@example.com`;  // Gebruikersnaam als e-mail
+        const email = `${username}@propchat.io`;  // Gebruikersnaam als e-mail
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
