@@ -3,39 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Gebruiker en Lijst</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Firebase Inloggen</title>
+    <script type="module" src="script.js"></script>
 </head>
 <body>
-    <!-- Login panel -->
+    <!-- Inlog Panel -->
     <div id="login-panel">
-        <h2>Inloggen</h2>
         <form id="login-form">
-            <input type="text" id="username" placeholder="Gebruikersnaam" required>
-            <input type="password" id="password" placeholder="Wachtwoord" required>
+            <input type="email" id="login-email" placeholder="E-mail" required>
+            <input type="password" id="login-password" placeholder="Wachtwoord" required>
             <button type="submit">Inloggen</button>
-            <p id="login-error" style="color: red;"></p>
         </form>
+        <div id="login-error"></div>
     </div>
 
-    <!-- Main panel (na inloggen) -->
+    <!-- Hoofd Panel -->
     <div id="main-panel" style="display: none;">
         <h2>Welkom, <span id="username-display"></span></h2>
         <button id="logout-btn">Uitloggen</button>
-
-        <h3>Items:</h3>
         <ul id="items-list"></ul>
 
-        <h3>Nieuw Item Toevoegen:</h3>
+        <!-- Item toevoegen -->
         <form id="add-form">
             <input type="text" id="naam" placeholder="Naam" required>
             <input type="text" id="beschrijving" placeholder="Beschrijving" required>
             <input type="text" id="status" placeholder="Status" required>
-            <button type="submit">Voeg Item Toe</button>
+            <button type="submit">Voeg item toe</button>
         </form>
     </div>
-
-    <script src="firebase-config.js"></script>
-    <script type="module" src="script.js"></script>
 </body>
 </html>
