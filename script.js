@@ -29,10 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
-        const email = `${username}@propchat.io`;  // Gebruikersnaam als e-mail
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, username, password);
             localStorage.setItem("isLoggedIn", "true");
             showMainPanel();
         } catch (error) {
