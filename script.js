@@ -1,3 +1,8 @@
+// Firebase-configuratie en import van Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js";
+
 // Firebase-configuratie
 const firebaseConfig = {
   apiKey: "AIzaSyB5ae1DTNSbY2xD81O_o8T3RR2HD8HdBA4",
@@ -9,15 +14,12 @@ const firebaseConfig = {
   measurementId: "G-G6SEDX6Q3V"
 };
 
-// Firebase initialiseren
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js";
-
+// Initialiseer Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Inlog functionaliteit en DOM interactie
 document.addEventListener("DOMContentLoaded", () => {
     const loginPanel = document.getElementById("login-panel");
     const mainPanel = document.getElementById("main-panel");
