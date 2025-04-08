@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beveiligde Lijst</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Login Paneel -->
+  <div class="login-panel" id="login-panel">
+    <h2>Inloggen</h2>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Gebruikersnaam" required />
+      <input type="password" id="password" placeholder="Wachtwoord" required />
+      <button type="submit">Inloggen</button>
+    </form>
+    <div id="login-error" class="error"></div>
+  </div>
+
+  <!-- Hoofd Paneel -->
+  <div class="panel" id="main-panel" style="display: none;">
+    <button id="logout-btn" class="logout-btn">Uitloggen</button>
+    <h2>Items</h2>
+    <ul id="items-list"></ul>
+
+    <h3>Nieuw item toevoegen</h3>
+    <form id="add-form">
+      <input type="text" id="naam" placeholder="Naam" required />
+      <input type="text" id="beschrijving" placeholder="Beschrijving" required />
+      <input type="text" id="status" placeholder="Status" required />
+      <button type="submit">Toevoegen</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

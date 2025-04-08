@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+    margin: 0;
+  }
+  
+  .panel {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 24px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  ul#items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+  
+  .item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fafafa;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  
+  .string {
+    margin: 6px 0;
+  }
+  
+  .string:first-child {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .string:last-child {
+    color: green;
+  }
+  
+  button.remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  form button {
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .login-panel {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .login-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  .logout-btn {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
