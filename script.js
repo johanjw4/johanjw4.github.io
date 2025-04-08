@@ -1,4 +1,4 @@
-// Firebase-configuratie en import van Firebase modules
+// Firebase-configuratie en import van Firebase-modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js";
@@ -8,7 +8,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Inlog functionaliteit en DOM interactie
+// Inlogfunctionaliteit
 document.addEventListener("DOMContentLoaded", () => {
     const loginPanel = document.getElementById("login-panel");
     const mainPanel = document.getElementById("main-panel");
@@ -23,19 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
         showMainPanel();
     }
 
-    // Inloggen via gebruikersnaam en wachtwoord
+    // Inloggen via e-mail en wachtwoord
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
 
         try {
-            await signInWithEmailAndPassword(auth, username, password);
+            await signInWithEmailAndPassword(auth, email, password);
             localStorage.setItem("isLoggedIn", "true");
             showMainPanel();
         } catch (error) {
-            loginError.textContent = "Ongeldige gebruikersnaam of wachtwoord.";
+            loginError.textContent = "Ongeldige e-mail of wachtwoord.";
         }
     });
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mainPanel.style.display = "block";
 
         const user = auth.currentUser;
-        usernameDisplay.textContent = user.displayName || user.email.split('@')[0]; // Toon gebruikersnaam
+        usernameDisplay.textContent = user.email.split('@')[0]; // Toon e-mail als gebruikersnaam
 
         loadItems();
 
