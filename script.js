@@ -1,12 +1,12 @@
 // Firebase-configuratie
 const firebaseConfig = {
-  apiKey: "jouw-api-key",
-  authDomain: "jouw-project-id.firebaseapp.com",
-  projectId: "jouw-project-id",
-  storageBucket: "jouw-project-id.appspot.com",
-  messagingSenderId: "jouw-messaging-sender-id",
-  appId: "jouw-app-id",
-  measurementId: "jouw-measurement-id"
+  apiKey: "AIzaSyB5ae1DTNSbY2xD81O_o8T3RR2HD8HdBA4",
+  authDomain: "johanjw4-github.firebaseapp.com",
+  projectId: "johanjw4-github",
+  storageBucket: "johanjw4-github.firebasestorage.app",
+  messagingSenderId: "715286980100",
+  appId: "1:715286980100:web:3e279004a9552f0362f751",
+  measurementId: "G-G6SEDX6Q3V"
 };
 
 // Firebase initialiseren
