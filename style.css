@@ -1,55 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
-h2, h3 {
-    color: #333;
+#login, #panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 
-form {
-    margin: 10px 0;
-}
-
-input {
-    padding: 8px;
-    margin: 5px;
-    width: 200px;
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
 }
 
 button {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
 button:hover {
-    background-color: #45a049;
+  background: #45a049;
+}
+
+h2 {
+  margin-top: 0;
+  text-align: center;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 li {
-    margin: 10px 0;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 4px;
+  background: #e0f7fa;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  transition: background 0.2s ease;
 }
 
-.remove-btn {
-    color: red;
-    cursor: pointer;
-    background: none;
-    border: none;
-}
-
-.remove-btn:hover {
-    text-decoration: underline;
+li:hover {
+  background: #b2ebf2;
+  text-decoration: line-through;
+  cursor: pointer;
 }
