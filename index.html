@@ -2,31 +2,29 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <title>ID Manager</title>
-  <link rel="stylesheet" href="style.css">
+  <title>ID Beheer</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <div id="login">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Wachtwoord">
-    <button id="loginBtn">Login</button>
-  </div>
+  <h2>Inloggen</h2>
+  <input id="email" type="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Wachtwoord" />
+  <button onclick="login()">Login</button>
 
-  <div id="panel" style="display:none;">
+  <div id="app" style="display: none;">
     <h2>Mijn ID's</h2>
-    <ul id="itemList"></ul>
-
-    <input type="text" id="naamInput" placeholder="Naam">
-    <input type="text" id="idnrInput" placeholder="ID nummer">
-    <input type="text" id="idpassInput" placeholder="ID wachtwoord">
-    <button id="addItemBtn">Toevoegen</button>
-    <button id="logoutBtn">Uitloggen</button>
+    <ul id="items"></ul>
+    <input id="naam" placeholder="Naam" />
+    <input id="idnr" placeholder="ID nummer" />
+    <input id="idpass" placeholder="Wachtwoord" />
+    <button onclick="toevoegen()">Toevoegen</button>
+    <button onclick="logout()">Uitloggen</button>
   </div>
 </body>
 </html>
