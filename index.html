@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Beveiligde Lijst</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Gebruiker en Lijst</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Login Paneel -->
-  <div class="login-panel" id="login-panel">
-    <h2>Inloggen</h2>
-    <form id="login-form">
-      <input type="text" id="username" placeholder="Gebruikersnaam" required />
-      <input type="password" id="password" placeholder="Wachtwoord" required />
-      <button type="submit">Inloggen</button>
-    </form>
-    <div id="login-error" class="error"></div>
-  </div>
+    <!-- Login panel -->
+    <div id="login-panel">
+        <h2>Inloggen</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Gebruikersnaam" required>
+            <input type="password" id="password" placeholder="Wachtwoord" required>
+            <button type="submit">Inloggen</button>
+            <p id="login-error" style="color: red;"></p>
+        </form>
+    </div>
 
-  <!-- Hoofd Paneel -->
-  <div class="panel" id="main-panel" style="display: none;">
-    <button id="logout-btn" class="logout-btn">Uitloggen</button>
-    <h2>Items</h2>
-    <ul id="items-list"></ul>
+    <!-- Main panel (na inloggen) -->
+    <div id="main-panel" style="display: none;">
+        <h2>Welkom, <span id="username-display"></span></h2>
+        <button id="logout-btn">Uitloggen</button>
 
-    <h3>Nieuw item toevoegen</h3>
-    <form id="add-form">
-      <input type="text" id="naam" placeholder="Naam" required />
-      <input type="text" id="beschrijving" placeholder="Beschrijving" required />
-      <input type="text" id="status" placeholder="Status" required />
-      <button type="submit">Toevoegen</button>
-    </form>
-  </div>
+        <h3>Items:</h3>
+        <ul id="items-list"></ul>
 
-  <script src="script.js"></script>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"></script>
+        <h3>Nieuw Item Toevoegen:</h3>
+        <form id="add-form">
+            <input type="text" id="naam" placeholder="Naam" required>
+            <input type="text" id="beschrijving" placeholder="Beschrijving" required>
+            <input type="text" id="status" placeholder="Status" required>
+            <button type="submit">Voeg Item Toe</button>
+        </form>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
