@@ -10,10 +10,6 @@ const firebaseConfig = {
 };
 
 // Firebase initialiseren
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js";
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
