@@ -1,35 +1,26 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Inloggen</title>
-    <script type="module" src="script.js"></script>
+  <title>Panel App</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
-    <!-- Inlog Panel -->
-    <div id="login-panel">
-        <form id="login-form">
-            <input type="email" id="login-email" placeholder="E-mail" required>
-            <input type="password" id="login-password" placeholder="Wachtwoord" required>
-            <button type="submit">Inloggen</button>
-        </form>
-        <div id="login-error"></div>
-    </div>
+  <div id="login">
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+  </div>
 
-    <!-- Hoofd Panel -->
-    <div id="main-panel" style="display: none;">
-        <h2>Welkom, <span id="username-display"></span></h2>
-        <button id="logout-btn">Uitloggen</button>
-        <ul id="items-list"></ul>
-
-        <!-- Item toevoegen -->
-        <form id="add-form">
-            <input type="text" id="naam" placeholder="Naam" required>
-            <input type="text" id="beschrijving" placeholder="Beschrijving" required>
-            <input type="text" id="status" placeholder="Status" required>
-            <button type="submit">Voeg item toe</button>
-        </form>
-    </div>
+  <div id="panel" style="display: none;">
+    <h2>Je item</h2>
+    <ul id="stringList"></ul>
+    <input type="text" id="newString" placeholder="Nieuwe string" />
+    <button id="addStringBtn">Toevoegen</button>
+    <button id="logoutBtn">Uitloggen</button>
+  </div>
 </body>
 </html>
