@@ -1,69 +1,91 @@
-let user = null;
+import { auth, db } from './firebase-config.js';
+import {
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc
+} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
-auth.onAuthStateChanged((u) => {
-  user = u;
-  document.getElementById("loading").style.display = "none";
+// Elements
+const loginForm = document.getElementById('login-form');
+const mainPanel = document.getElementById('main-panel');
+const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const errorDisplay = document.getElementById('login-error');
 
-  if (user) {
-    document.getElementById("login-form").style.display = "none";
-    document.getElementById("app").style.display = "block";
-    load();
-  } else {
-    document.getElementById("login-form").style.display = "block";
-    document.getElementById("app").style.display = "none";
+const nameInput = document.getElementById('name-input');
+const numberInput = document.getElementById('number-input');
+const passcodeInput = document.getElementById('passcode-input');
+const addIdBtn = document.getElementById('add-id-btn');
+const idList = document.getElementById('id-list');
+
+const idsRef = collection(db, "ids");
+
+function show(ids) {
+  idList.innerHTML = "";
+  ids.forEach(docSnap => {
+    const data = docSnap.data();
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${data.naam} - ${data.nummer} - ${data.passcode}
+      <button data-id="${docSnap.id}">Verwijder</button>
+    `;
+    li.querySelector("button").onclick = async () => {
+      await deleteDoc(doc(idsRef, docSnap.id));
+      loadIDs();
+    };
+    idList.appendChild(li);
+  });
+}
+
+async function loadIDs() {
+  const snapshot = await getDocs(idsRef);
+  show(snapshot.docs);
+}
+
+loginBtn.addEventListener('click', async () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    errorDisplay.textContent = "Login mislukt: " + error.message;
   }
 });
 
-function login() {
-  const email = document.getElementById("email").value;
-  const pw = document.getElementById("password").value;
-  auth.signInWithEmailAndPassword(email, pw).catch((err) =>
-    alert("Login fout: " + err.message)
-  );
-}
+logoutBtn.addEventListener('click', async () => {
+  await signOut(auth);
+});
 
-function logout() {
-  auth.signOut();
-}
+addIdBtn.addEventListener('click', async () => {
+  const naam = nameInput.value;
+  const nummer = numberInput.value;
+  const passcode = passcodeInput.value;
 
-async function toevoegen() {
-  const naam = document.getElementById("naam").value;
-  const idnr = document.getElementById("idnr").value;
-  const idpass = document.getElementById("idpass").value;
-
-  if (!naam || !idnr || !idpass) {
-    alert("Alles invullen!");
-    return;
+  if (naam && nummer && passcode) {
+    await addDoc(idsRef, { naam, nummer, passcode });
+    nameInput.value = "";
+    numberInput.value = "";
+    passcodeInput.value = "";
+    loadIDs();
   }
+});
 
-  const item = { naam, idnr, idpass };
-  const ref = db.collection("users").doc(user.uid);
-  const doc = await ref.get();
-  const data = doc.exists ? doc.data() : { items: [] };
-  data.items.push(item);
-  await ref.set(data);
-  load();
-
-  // Wis de invoervelden
-  document.getElementById("naam").value = "";
-  document.getElementById("idnr").value = "";
-  document.getElementById("idpass").value = "";
-}
-
-async function load() {
-  const ref = db.collection("users").doc(user.uid);
-  const doc = await ref.get();
-  const items = doc.exists ? doc.data().items : [];
-  const list = document.getElementById("items");
-  list.innerHTML = "";
-  items.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<b>${item.naam}</b><br>ID: ${item.idnr}<br>Wachtwoord: ${item.idpass}`;
-    li.onclick = async () => {
-      items.splice(index, 1);
-      await ref.set({ items });
-      load();
-    };
-    list.appendChild(li);
-  });
-}
+onAuthStateChanged(auth, user => {
+  if (user) {
+    loginForm.style.display = "none";
+    mainPanel.style.display = "block";
+    loadIDs();
+  } else {
+    loginForm.style.display = "block";
+    mainPanel.style.display = "none";
+  }
+});
