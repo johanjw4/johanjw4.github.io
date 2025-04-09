@@ -4,15 +4,21 @@
   <meta charset="UTF-8" />
   <title>ID Beheer</title>
   <link rel="stylesheet" href="style.css" />
+
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <!-- Config + App -->
   <script src="firebase-config.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <div id="loading">Bezig met laden...</div>
+  <div id="loading">
+    <div class="loader"></div>
+    Bezig met laden...
+  </div>
 
   <div id="login-form" style="display: none;">
     <h2>Inloggen</h2>
@@ -31,5 +37,4 @@
     <button onclick="logout()">Uitloggen</button>
   </div>
 </body>
-
 </html>
