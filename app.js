@@ -54,7 +54,14 @@ function getIds() {
 auth.onAuthStateChanged((user) => {
   if (user) {
     console.log("Ingelogd als:", user.email);
+    // Toon het ID-paneel als de gebruiker is ingelogd
+    document.getElementById('login-form').style.display = 'none'; // Verberg loginformulier
+    document.getElementById('id-panel').style.display = 'block';  // Toon ID-paneel
+    getIds();  // Haal de IDs op uit de database
   } else {
     console.log("Niet ingelogd");
+    // Verberg ID-paneel als de gebruiker niet ingelogd is
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('id-panel').style.display = 'none';
   }
 });
