@@ -1,9 +1,18 @@
 let user = null;
 
 auth.onAuthStateChanged((u) => {
-  user = u;
-  document.getElementById("app").style.display = u ? "block" : "none";
-  if (u) load();
+  document.getElementById("loading").style.display = "none";
+
+  if (u) {
+    user = u;
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    load();
+  } else {
+    user = null;
+    document.getElementById("login-form").style.display = "block";
+    document.getElementById("app").style.display = "none";
+  }
 });
 
 function login() {
