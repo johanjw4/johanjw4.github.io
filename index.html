@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ID Beheer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ID Panel</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-  <!-- Config + App -->
-  <script src="firebase-config.js" defer></script>
-  <script src="app.js" defer></script>
+  <script type="module" src="app.js" defer></script>
 </head>
 <body>
-  <div id="loading">
-    <div class="loader"></div>
-    Bezig met laden...
-  </div>
+  <div id="app">
+    <h1>ID Panel</h1>
 
-  <div id="login-form" style="display: none;">
-    <h2>Inloggen</h2>
-    <input id="email" type="email" placeholder="Email" />
-    <input id="password" type="password" placeholder="Wachtwoord" />
-    <button onclick="login()">Login</button>
-  </div>
+    <div id="login-form">
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Wachtwoord" />
+      <button id="login-btn">Inloggen</button>
+      <p id="login-error" class="error"></p>
+    </div>
 
-  <div id="app" style="display: none;">
-    <h2>Mijn ID's</h2>
-    <ul id="items"></ul>
-    <input id="naam" placeholder="Naam" />
-    <input id="idnr" placeholder="ID nummer" />
-    <input id="idpass" placeholder="Wachtwoord" />
-    <button onclick="toevoegen()">Toevoegen</button>
-    <button onclick="logout()">Uitloggen</button>
+    <div id="main-panel" style="display: none;">
+      <button id="logout-btn">Uitloggen</button>
+
+      <h2>ID Toevoegen</h2>
+      <input type="text" id="name-input" placeholder="Naam" />
+      <input type="text" id="number-input" placeholder="Nummer" />
+      <input type="text" id="passcode-input" placeholder="Passcode" />
+      <button id="add-id-btn">Toevoegen</button>
+
+      <h2>Huidige IDs</h2>
+      <ul id="id-list"></ul>
+    </div>
   </div>
 </body>
 </html>
