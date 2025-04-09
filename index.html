@@ -13,13 +13,14 @@
     <button onclick="login(document.getElementById('email').value, document.getElementById('password').value)">Inloggen</button>
   </div>
 
-  <div id="id-panel">
-    <input type="text" id="idnr" placeholder="ID Nummer">
-    <input type="text" id="naam" placeholder="Naam">
-    <input type="password" id="wachtwoord" placeholder="Wachtwoord">
-    <button onclick="addId(document.getElementById('idnr').value, document.getElementById('naam').value, document.getElementById('wachtwoord').value)">Voeg ID toe</button>
-    <div id="ids-list"></div>
-  </div>
+<div id="id-panel" style="display: none;">
+  <input type="text" id="idnr" placeholder="ID Nummer">
+  <input type="text" id="naam" placeholder="Naam">
+  <input type="password" id="wachtwoord" placeholder="Wachtwoord">
+  <button onclick="addId(document.getElementById('idnr').value, document.getElementById('naam').value, document.getElementById('wachtwoord').value)">Voeg ID toe</button>
+  <div id="ids-list"></div>
+</div>
+
 
   <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"></script>
