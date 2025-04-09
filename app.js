@@ -1,15 +1,14 @@
 let user = null;
 
 auth.onAuthStateChanged((u) => {
+  user = u;
   document.getElementById("loading").style.display = "none";
 
-  if (u) {
-    user = u;
+  if (user) {
     document.getElementById("login-form").style.display = "none";
     document.getElementById("app").style.display = "block";
     load();
   } else {
-    user = null;
     document.getElementById("login-form").style.display = "block";
     document.getElementById("app").style.display = "none";
   }
@@ -44,6 +43,11 @@ async function toevoegen() {
   data.items.push(item);
   await ref.set(data);
   load();
+
+  // Wis de invoervelden
+  document.getElementById("naam").value = "";
+  document.getElementById("idnr").value = "";
+  document.getElementById("idpass").value = "";
 }
 
 async function load() {
