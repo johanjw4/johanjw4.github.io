@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ID Panel</title>
-  <link rel="stylesheet" href="style.css" />
-  <script type="module" src="app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijn ID Beheer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <h1>ID Panel</h1>
-
-    <div id="login-form">
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Wachtwoord" />
-      <button id="login-btn">Inloggen</button>
-      <p id="login-error" class="error"></p>
-    </div>
-
-    <div id="main-panel" style="display: none;">
-      <button id="logout-btn">Uitloggen</button>
-
-      <h2>ID Toevoegen</h2>
-      <input type="text" id="name-input" placeholder="Naam" />
-      <input type="text" id="number-input" placeholder="Nummer" />
-      <input type="text" id="passcode-input" placeholder="Passcode" />
-      <button id="add-id-btn">Toevoegen</button>
-
-      <h2>Huidige IDs</h2>
-      <ul id="id-list"></ul>
-    </div>
+  <div id="login-form">
+    <input type="email" id="email" placeholder="E-mail" required>
+    <input type="password" id="password" placeholder="Wachtwoord" required>
+    <button onclick="login(document.getElementById('email').value, document.getElementById('password').value)">Inloggen</button>
   </div>
+
+  <div id="id-panel">
+    <input type="text" id="idnr" placeholder="ID Nummer">
+    <input type="text" id="naam" placeholder="Naam">
+    <input type="password" id="wachtwoord" placeholder="Wachtwoord">
+    <button onclick="addId(document.getElementById('idnr').value, document.getElementById('naam').value, document.getElementById('wachtwoord').value)">Voeg ID toe</button>
+    <div id="ids-list"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
