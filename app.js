@@ -1,66 +1,57 @@
-const auth = firebase.auth();
-const db = firebase.firestore();
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+import { firebaseConfig } from './firebase-config.js';  // Zorg ervoor dat je firebase-config.js importeert
+
+// Firebase initialisatie
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+initializeApp(firebaseConfig);
+
+const auth = getAuth();
+const db = getFirestore();
 
 // Inloggen
 function login(email, password) {
-  auth.signInWithEmailAndPassword(email, password).catch((error) => {
-    console.error("Error logging in: ", error.message);
-  });
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("Ingelogd als:", user.email);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Inlogfout:", errorCode, errorMessage);
+      alert("Inloggen mislukt: " + errorMessage); // Toon een alert bij fout
+    });
 }
 
 // Uitloggen
 function logout() {
-  auth.signOut();
-}
-
-// ID toevoegen
-function addId(idnr, naam, wachtwoord) {
-  const user = auth.currentUser;
-  if (user) {
-    db.collection("ids").add({
-      idnr: idnr,
-      naam: naam,
-      wachtwoord: wachtwoord,
-      userId: user.uid
-    }).then(() => {
-      console.log("ID toegevoegd");
-    }).catch((error) => {
-      console.error("Error adding ID: ", error.message);
+  signOut(auth)
+    .then(() => {
+      console.log("Uitgelogd");
+    })
+    .catch((error) => {
+      console.error("Uitlogfout:", error.message);
     });
-  }
 }
 
-// ID verwijderen
-function deleteId(id) {
-  db.collection("ids").doc(id).delete().then(() => {
-    console.log("ID verwijderd");
-  }).catch((error) => {
-    console.error("Error deleting ID: ", error.message);
-  });
-}
+// Loginformulier
+document.querySelector('#login-form button').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  login(email, password);
+});
 
-// Get IDs voor weergave
-function getIds() {
-  db.collection("ids").get().then((snapshot) => {
-    snapshot.forEach(doc => {
-      console.log(doc.id, " => ", doc.data());
-    });
-  }).catch((error) => {
-    console.error("Error getting IDs: ", error.message);
-  });
-}
-
-// Luister naar loginstatus
-auth.onAuthStateChanged((user) => {
+// Luister naar de inlogstatus van de gebruiker
+onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("Ingelogd als:", user.email);
     // Toon het ID-paneel als de gebruiker is ingelogd
-    document.getElementById('login-form').style.display = 'none'; // Verberg loginformulier
-    document.getElementById('id-panel').style.display = 'block';  // Toon ID-paneel
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('id-panel').style.display = 'block';
     getIds();  // Haal de IDs op uit de database
   } else {
     console.log("Niet ingelogd");
-    // Verberg ID-paneel als de gebruiker niet ingelogd is
     document.getElementById('login-form').style.display = 'block';
     document.getElementById('id-panel').style.display = 'none';
   }
