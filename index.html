@@ -12,10 +12,14 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <h2>Inloggen</h2>
-  <input id="email" type="email" placeholder="Email" />
-  <input id="password" type="password" placeholder="Wachtwoord" />
-  <button onclick="login()">Login</button>
+  <div id="loading">Bezig met laden...</div>
+
+  <div id="login-form" style="display: none;">
+    <h2>Inloggen</h2>
+    <input id="email" type="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Wachtwoord" />
+    <button onclick="login()">Login</button>
+  </div>
 
   <div id="app" style="display: none;">
     <h2>Mijn ID's</h2>
@@ -27,4 +31,5 @@
     <button onclick="logout()">Uitloggen</button>
   </div>
 </body>
+
 </html>
