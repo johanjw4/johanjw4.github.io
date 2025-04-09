@@ -1,6 +1,7 @@
+// Importeer Firebase-modules in app.js
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
-import { firebaseConfig } from './firebase-config.js';  // Zorg ervoor dat je firebase-config.js importeert
+import { firebaseConfig } from './firebase-config.js'; // Zorg ervoor dat je firebase-config.js importeert
 
 // Firebase initialisatie
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
@@ -9,7 +10,7 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
-// Inloggen
+// Inloggen functie
 function login(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -20,9 +21,16 @@ function login(email, password) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.error("Inlogfout:", errorCode, errorMessage);
-      alert("Inloggen mislukt: " + errorMessage); // Toon een alert bij fout
+      alert("Inloggen mislukt: " + errorMessage);
     });
 }
+
+// Luister naar de klik op de login-knop
+document.getElementById('login-btn').addEventListener('click', () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  login(email, password);  // Roep de login functie aan
+});
 
 // Uitloggen
 function logout() {
