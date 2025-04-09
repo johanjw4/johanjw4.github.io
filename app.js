@@ -1,86 +1,65 @@
-import { auth } from './firebase-config.js';
-import {
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { db } from './firebase-config.js';
 
-const loginForm = document.getElementById('login-form');
-const mainPanel = document.getElementById('main-panel');
-const loginBtn = document.getElementById('login-btn');
-const logoutBtn = document.getElementById('logout-btn');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const errorDisplay = document.getElementById('login-error');
+const idsRef = collection(db, "ids"); // Verwijzing naar de 'ids' collectie
 
-const nameInput = document.getElementById('name-input');
-const numberInput = document.getElementById('number-input');
-const passcodeInput = document.getElementById('passcode-input');
-const addIdBtn = document.getElementById('add-id-btn');
-const idList = document.getElementById('id-list');
-
-// 🔁 Lokaal ID geheugen
-let ids = [];
-
-// 🔒 Firebase login
-loginBtn.addEventListener('click', async () => {
-  const email = emailInput.value;
-  const password = passwordInput.value;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    errorDisplay.textContent = "";
-  } catch (error) {
-    errorDisplay.textContent = "Login mislukt: " + error.message;
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    loginForm.style.display = "none";
+    mainPanel.style.display = "block";
+    await loadIDs(); // Laad de ID's nadat de gebruiker is ingelogd
+  } else {
+    loginForm.style.display = "block";
+    mainPanel.style.display = "none";
   }
 });
 
-logoutBtn.addEventListener('click', async () => {
-  await signOut(auth);
-});
-
-// 🆕 ID toevoegen
-addIdBtn.addEventListener('click', () => {
+// ID toevoegen
+addIdBtn.addEventListener('click', async () => {
   const naam = nameInput.value.trim();
   const nummer = numberInput.value.trim();
   const passcode = passcodeInput.value.trim();
 
   if (naam && nummer && passcode) {
-    ids.push({ naam, nummer, passcode });
-    nameInput.value = "";
-    numberInput.value = "";
-    passcodeInput.value = "";
-    renderIDs();
+    try {
+      // Voeg de nieuwe ID toe aan Firestore
+      await addDoc(idsRef, { naam, nummer, passcode });
+      
+      // Leeg de inputvelden
+      nameInput.value = "";
+      numberInput.value = "";
+      passcodeInput.value = "";
+
+      // Na toevoegen, de lijst opnieuw laden
+      await loadIDs(); // Dit is je functie om de ID's op te halen
+    } catch (err) {
+      console.error("Fout bij toevoegen:", err.message);
+    }
   }
 });
 
-// 🔄 ID lijst tonen
-function renderIDs() {
-  idList.innerHTML = "";
+// Functie om de huidige ID's op te halen en weer te geven
+async function loadIDs() {
+  const querySnapshot = await getDocs(idsRef);
+  idList.innerHTML = ""; // Maak de lijst leeg voordat je opnieuw toevoegt
 
-  ids.forEach((item, index) => {
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.naam} - ${item.nummer} - ${item.passcode}
-      <button data-index="${index}">Verwijder</button>
+      ${data.naam} - ${data.nummer} - ${data.passcode}
+      <button data-id="${doc.id}">Verwijder</button>
     `;
     li.querySelector("button").addEventListener("click", () => {
-      ids.splice(index, 1);
-      renderIDs();
+      deleteID(doc.id); // Verwijder de ID uit Firestore
     });
     idList.appendChild(li);
   });
 }
 
-// 🔁 Inlogstatus
-onAuthStateChanged(auth, user => {
-  if (user) {
-    loginForm.style.display = "none";
-    mainPanel.style.display = "block";
-  } else {
-    loginForm.style.display = "block";
-    mainPanel.style.display = "none";
-    ids = []; // wis lokale data bij logout
-    renderIDs();
-  }
-});
+// Functie om ID te verwijderen uit Firestore
+async function deleteID(id) {
+  const docRef = doc(db, "ids", id);
+  await deleteDoc(docRef);
+  await loadIDs(); // Herlaad de lijst na verwijdering
+}
