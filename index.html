@@ -3,14 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Item Panel</title>
+    <title>Dynamic Item Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">
-      <h1 class="text-xl font-bold text-gray-800 mb-2">String One</h1>
-      <p class="text-gray-600">String Two</p>
-      <p class="text-gray-400 mt-1">String Three</p>
+  <body class="bg-gray-100 min-h-screen p-6">
+    <div class="max-w-xl mx-auto space-y-6">
+      <!-- Add New Item Form -->
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h2 class="text-lg font-bold mb-2">Add New Item</h2>
+        <input id="str1" type="text" placeholder="String 1" class="w-full mb-2 p-2 border rounded" />
+        <input id="str2" type="text" placeholder="String 2" class="w-full mb-2 p-2 border rounded" />
+        <input id="str3" type="text" placeholder="String 3" class="w-full mb-4 p-2 border rounded" />
+        <button id="addBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Item</button>
+      </div>
+
+      <!-- Items Container -->
+      <div id="itemsContainer" class="space-y-4"></div>
     </div>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
   </body>
 </html>
