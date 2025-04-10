@@ -1,31 +1,16 @@
 <!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mijn ID Beheer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="login-form">
-    <input type="email" id="email" placeholder="E-mail" required>
-    <input type="password" id="password" placeholder="Wachtwoord" required>
-    <button id="login-btn">Inloggen</button>
-  </div>
-
-<div id="id-panel" style="display: none;">
-  <input type="text" id="idnr" placeholder="ID Nummer">
-  <input type="text" id="naam" placeholder="Naam">
-  <input type="password" id="wachtwoord" placeholder="Wachtwoord">
-  <button onclick="addId(document.getElementById('idnr').value, document.getElementById('naam').value, document.getElementById('wachtwoord').value)">Voeg ID toe</button>
-  <div id="ids-list"></div>
-</div>
-
-
-  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"></script>
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="app.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Item Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-2xl shadow-xl w-80 text-center">
+      <h1 class="text-xl font-bold text-gray-800 mb-2">String One</h1>
+      <p class="text-gray-600">String Two</p>
+      <p class="text-gray-400 mt-1">String Three</p>
+    </div>
+  </body>
 </html>
