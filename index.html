@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dynamic Item Panel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-100 min-h-screen p-6">
-    <div class="max-w-xl mx-auto space-y-6">
-      <!-- Add New Item Form -->
-      <div class="bg-white p-4 rounded-xl shadow">
-        <h2 class="text-lg font-bold mb-2">Add New Item</h2>
-        <input id="str1" type="text" placeholder="String 1" class="w-full mb-2 p-2 border rounded" />
-        <input id="str2" type="text" placeholder="String 2" class="w-full mb-2 p-2 border rounded" />
-        <input id="str3" type="text" placeholder="String 3" class="w-full mb-4 p-2 border rounded" />
-        <button id="addBtn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Item</button>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Integration</title>
+  
+  <!-- Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-      <!-- Items Container -->
-      <div id="itemsContainer" class="space-y-4"></div>
+  <!-- Supabase JS SDK (client-side) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/supabase.min.js" defer></script>
+</head>
+<body class="bg-gray-100 p-8">
+
+  <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-semibold text-center mb-6">Supabase Integration Example</h1>
+    
+    <!-- Authentication Section -->
+    <div id="auth-container" class="space-y-4 mb-6">
+      <h3 class="text-2xl">Sign In</h3>
+      <input type="email" id="email" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Email" />
+      <input type="password" id="password" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Password" />
+      <button onclick="signUp()" class="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Sign Up</button>
+      <button onclick="signIn()" class="w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600">Sign In</button>
+      <button onclick="signOut()" class="w-full p-2 bg-red-500 text-white rounded-md hover:bg-red-600">Sign Out</button>
     </div>
 
-    <!-- Link to external JS -->
-    <script src="script.js"></script>
-  </body>
+    <!-- Items Section -->
+    <div id="items-container" class="space-y-4">
+      <h3 class="text-2xl">Items</h3>
+      <ul id="items-list" class="space-y-2"></ul>
+      <input type="text" id="str1" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Str1" />
+      <input type="text" id="str2" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Str2" />
+      <input type="text" id="str3" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Str3" />
+      <button onclick="addItem()" class="w-full p-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">Add Item</button>
+    </div>
+  </div>
+
+  <!-- Include app.js as a module -->
+  <script src="supabase-config.js" type="module" defer></script>
+  <script src="app.js" type="module" defer></script>
+
+</body>
 </html>
