@@ -1,9 +1,6 @@
 // login.js
 
-import { supabaseUrl, supabaseKey } from './supabase-config.js';
-
-// Initialize Supabase client
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+import { supabase } from './supabase-config.js';  // Import the initialized supabase client
 
 async function signIn() {
   const email = document.getElementById('email').value;
